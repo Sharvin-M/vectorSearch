@@ -5,7 +5,6 @@
 #include <cmath>
 
 // after the user inputs a filename, we are passing the user input by reference and opening it into the stream
-typedef signed short int zero_to_one;
 
 std::vector<std::string> read_input(const std::string &rFile) {
   std::ifstream inputFile(rFile);
@@ -31,14 +30,14 @@ std::vector<std::string> read_input(const std::string &rFile) {
   return multi;
 }
 
-std::vector<int> embedder(std::vector<std::string> &input_vector) {
-  std::vector<int> vector_embedding;
-
-  return vector_embedding;
-}
+// std::vector<int> embedder(std::vector<std::string> &input_vector) {
+//   std::vector<int> vector_embedding;
+//
+//   return vector_embedding;
+// }
 
 int dot_product(const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
-  long int dotProd;
+  int dotProd = 0;
 
   for (int i = 0; i < first_vector.size(); i++) {
     dotProd += first_vector.at(i) * second_vector.at(i);
@@ -57,13 +56,13 @@ double magnitude(const std::vector<int> &input_vector) {
   return sqrt(magni);
 }
 
-zero_to_one vector_cosine_similarlity( const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
+double vector_cosine_similarlity( const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
 
-  double magnitude_first_vector = magnitude(first_vector);
-  double magnitude_second_vector = magnitude(second_vector);
-  int dot_prod = dot_product(first_vector, second_vector);
+  const double magnitude_first_vector = magnitude(first_vector);
+  const double magnitude_second_vector = magnitude(second_vector);
+  const int dot_prod = dot_product(first_vector, second_vector);
 
-  zero_to_one similarity = cos( (dot_prod) / (magnitude_first_vector * magnitude_second_vector));
+  const double similarity = cos( dot_prod / (magnitude_first_vector * magnitude_second_vector));
 
   return similarity;
 
