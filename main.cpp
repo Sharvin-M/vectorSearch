@@ -4,46 +4,40 @@
 #include <string>
 #include <cmath>
 
-// after the user inputs a filename, we are passing the user input by reference and opening it into the stream
-
-std::vector<std::string> read_input(const std::string &rFile) {
-  std::ifstream inputFile(rFile);
-
-  // error handling for testing purposes, plan to delete for less branches and better perf
+// error handling for testing purposes, plan to delete for less branches and better perf
   // also look into implementing error codes
   //dynamic dispatch, inline methods, static polymorphism, template code, reducing cache misses
 
-  if (!inputFile.is_open()) {
-    std::cerr << "Error opening the file!" << std::endl;
-    return {};
-  }
-    std::string oneLine;
-    std::vector<std::string> multi;
-    for (int i = 0; i < 50; i++) {
-      getline(inputFile, oneLine);
-      multi.push_back(oneLine);
-    }
-    inputFile.close();
-  for (int i = 0; i < 10; i++) {
-    std::cout << multi.at(i) << std::endl;
-  }
-  return multi;
-}
-
-// std::vector<int> embedder(std::vector<std::string> &input_vector) {
-//   std::vector<int> vector_embedding;
+// std::vector<std::string> read_string_input(const std::string &r_file) {
+//   std::ifstream input_file(r_file);
 //
-//   return vector_embedding;
+//
+//
+//   if (!input_file.is_open()) {
+//     std::cerr << "Error opening the file!" << std::endl;
+//     return {};
+//   }
+//     std::string one_line;
+//     std::vector<std::string> multi_line;
+//     for (int i = 0; i < 50; i++) {
+//       getline(input_file, one_line);
+//       multi_line.push_back(one_line);
+//     }
+//     input_file.close();
+//   for (int i = 0; i < 10; i++) {
+//     std::cout << multi_line.at(i) << std::endl;
+//   }
+//   return multi_line;
 // }
 
 int dot_product(const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
-  int dotProd = 0;
+  int dot_prod = 0;
 
   for (int i = 0; i < first_vector.size(); i++) {
-    dotProd += first_vector.at(i) * second_vector.at(i);
+    dot_prod += first_vector.at(i) * second_vector.at(i);
   }
 
-  return dotProd;
+  return dot_prod;
 }
 
 double magnitude(const std::vector<int> &input_vector) {
@@ -56,13 +50,13 @@ double magnitude(const std::vector<int> &input_vector) {
   return sqrt(magni);
 }
 
-double vector_cosine_similarlity( const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
+double cosine_similarity( const std::vector<int> &first_vector,const std::vector<int> &second_vector) {
 
   const double magnitude_first_vector = magnitude(first_vector);
   const double magnitude_second_vector = magnitude(second_vector);
-  const int dot_prod = dot_product(first_vector, second_vector);
+  const double dot_prod = dot_product(first_vector, second_vector);
 
-  const double similarity = cos( dot_prod / (magnitude_first_vector * magnitude_second_vector));
+  const double similarity = (dot_prod / (magnitude_first_vector * magnitude_second_vector));
 
   return similarity;
 
@@ -70,9 +64,14 @@ double vector_cosine_similarlity( const std::vector<int> &first_vector,const std
 
 
 int main() {
-  std::string inFileName = "";
-  std::cin >> inFileName;
-  read_input(inFileName);
+  // std::string input_file_name = "";
+  // std::cin >> input_file_name;
+  // read_string_input(input_file_name);
+  std::vector<int> first_test_vector = {1, 1, 1};
+  std::vector<int> second_test_vector = {1, 1, 1};
+  std::cout << dot_product(first_test_vector, second_test_vector) << std::endl;
+  std::cout << magnitude(first_test_vector) << std::endl;
+  std::cout << cosine_similarity(first_test_vector, second_test_vector) << std::endl;
   return 0;
 }
 
